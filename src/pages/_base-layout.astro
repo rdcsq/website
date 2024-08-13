@@ -1,0 +1,49 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>rdcsq</title>
+    <link rel="preconnect" href="https://rsms.me" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+  </head>
+  <body>
+    <header
+      class="flex w-100 p-4 border-b border-violet-400 border-dashed justify-between items-center"
+    >
+      <a href="/" class="inline-flex items-center gap-2">
+        <img
+          src="https://avatars.githubusercontent.com/u/140211237"
+          class="size-10 rounded-full inline"
+          aria-hidden="true"
+        />
+        <h1 class="font-bold text-2xl">rdcsq</h1>
+      </a>
+
+      <nav>
+        <!-- <a href="/blog">blog</a>
+        <span aria-hidden="true">·</span> -->
+        <a href="https://github.com/rdcsq" target="_blank">github</a>
+      </nav>
+    </header>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    font-family: Inter, sans-serif;
+    font-feature-settings: "ss02" 1; /* fix for Chrome */
+  }
+
+  @supports (font-variation-settings: normal) {
+    :root {
+      font-family: InterVariable, sans-serif;
+    }
+  }
+
+  .prose :where(p):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+</style>

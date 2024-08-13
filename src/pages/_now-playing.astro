@@ -61,7 +61,7 @@ const url = import.meta.env.PUBLIC_LASTFM_WORKER_URL;
       const staleDate = new Date();
       staleDate.setMinutes(staleDate.getMinutes() + 5);
 
-      if (new Date(data.timestamp) > staleDate || !data.current) {
+      if (!data.current) {
         cardTitle!.innerText = "Last listened to";
       }
 

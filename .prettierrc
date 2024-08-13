@@ -1,0 +1,7 @@
+{
+    "proseWrap": "always",
+    "semi": true,
+    "singleQuote": true,
+    "plugins": ["prettier-plugin-tailwindcss"],
+    "trailingComma": "all"
+}
