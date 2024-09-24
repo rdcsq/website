@@ -4,12 +4,14 @@
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>rdcsq</title>
-    <link rel="preconnect" href="https://rsms.me" />
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=satoshi@1,2&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body>
+  <body class="bg-ctp-base text-ctp-text">
     <header
-      class="flex w-100 p-4 border-b border-violet-400 border-dashed justify-between items-center"
+      class="flex w-100 p-4 max-w-4xl mx-auto my-2 justify-between items-center"
     >
       <a href="/" class="inline-flex items-center gap-2">
         <img
@@ -21,29 +23,55 @@
       </a>
 
       <nav>
-        <!-- <a href="/blog">blog</a>
-        <span aria-hidden="true">·</span> -->
+        <a href="/blog">blog</a>
+        <span aria-hidden="true">·</span>
         <a href="https://github.com/rdcsq" target="_blank">github</a>
       </nav>
     </header>
     <slot />
+    <footer>
+      <div class="max-w-4xl mx-auto p-4">
+        <p class="text-center text-ctp-subtext0">
+          made with <a href="https://astro.build" class="underline">Astro</a>,
+          using the <a href="https://github.com/catppuccin" class="underline"
+            >Catppuccin</a
+          > color palette and the <a
+            href="https://fontshare.com"
+            class="underline">Satoshi</a
+          > font
+        </p>
+      </div>
+    </footer>
   </body>
 </html>
 
 <style is:global>
   :root {
-    font-family: Inter, sans-serif;
-    font-feature-settings: "ss02" 1; /* fix for Chrome */
+    font-family: 'Satoshi', sans-serif;
   }
 
-  @supports (font-variation-settings: normal) {
-    :root {
-      font-family: InterVariable, sans-serif;
-    }
-  }
-
-  .prose :where(p):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  .prose :where(p):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
     margin-top: 0.5em;
     margin-bottom: 0.5em;
+  }
+
+  .prose {
+    @apply text-ctp-text;
+  }
+
+  .prose h1 {
+    @apply text-ctp-text;
+  }
+
+  .prose h2 {
+    @apply text-ctp-subtext0;
+  }
+
+  .prose a {
+    @apply text-ctp-blue;
+  }
+
+  .prose code {
+    @apply rounded-md bg-ctp-overlay2/20 p-1 text-ctp-overlay2;
   }
 </style>

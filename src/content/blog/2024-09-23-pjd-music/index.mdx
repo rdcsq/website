@@ -1,0 +1,77 @@
+---
+title: "extracting Project DIVA's music and playing with it"
+date: 2024-09-23
+---
+
+I started playing Project DIVA in January of 2023, and I loved it since then. I
+didn't use to listen to Vocaloid/voice-synth music before, but now I'm a big fan
+of it.
+
+In Project DIVA, there's a mechanic where if you miss a note, the vocals will be
+muted until a note is hit, and I've always been interested in instrumental
+versions of songs, so here's the short journey of extracting the music and doing
+some stuff with it.
+
+## credits
+
+This wouldn't be possible at all without the hard work of the MikuMikuLibrary
+and StemRoller devs big shoutout to them.
+
+- [MikuMikuLibrary](https://github.com/blueskythlikesclouds/MikuMikuLibrary)
+- StemRoller: [Website](https://stemroller.com/),
+  [GitHub](https://github.com/stemrollerapp/stemroller)
+
+## extracting the music
+
+![Project DIVA folder structure, highlighting 2 .cpk files](./pjd-folder.webp)
+
+Project DIVA stores the music in .cpk files, so I used
+[MikuMikuLibrary](https://github.com/blueskythlikesclouds/MikuMikuLibrary) to
+extract the game files. I'm using a copy of Project DIVA MegaMix+.
+
+Download and extract FarcPack from the Releases section. It's a Windows binary
+so I used Wine to run `FarcPack.exe [path to .cpk file]` (made a new Wine prefix
+and installed dotnet48, according to the Linux prerequisites)
+
+![FarcPack extracting a .cpk file](./extracting-with-farcpack.webp)
+
+Now all the songs will be in `diva_[main/dlc00]/rom_steam[_dlc]/rom/sound/song`.
+They're all Vorbis files and opening them with Audacity reveals that they have 4
+channels: 2 for the instrumental and 2 for the vocals. I set each channel from
+each pair of channels to a side (L/R) and exported each pair of channels as 2
+stereo .WAV files: one for instrumentals and one for vocals.
+
+![Screenshot of Audacity showing an audio file with 4 channels](./audacity.webp)
+
+## splitting the instrumentals
+
+[StemRoller](https://github.com/stemrollerapp/stemroller) is a nicely packaged
+desktop application to separate vocals and instrumental stems from a song. It
+can split songs into vocals, bass, drums and other instruments (guitar, piano,
+etc.), though recently they added an experimental 6 channel option, but I'm just
+using the 4 channel (fine) preset.
+
+I'm only using it for the instrumentals track, because in my experience, using
+it with the full song leads to the vocals sounding... somewhat bad.
+
+![Screenshot of the StemRoller website, the app's interface and a folder with 5 WAV files](./stemroller.webp)
+
+It generated 5 files: bass, drums, other, vocals (which is empty) and
+instrumental (which is a mix of the first 3).
+
+## the final result
+
+I added 4 files to a new Audacity project: the vocals file and the following 3
+files resulting from StemRoller: `bass.wav`, `drums.wav`, and `other.wav`, and
+this is an example of what I ended up with: (song is Neru - Tokyo Teddy Bear)
+
+<iframe
+  class="aspect-video w-full"
+  src="https://www.youtube-nocookie.com/embed/OaNkeF979eQ?si=rHKODpUqQT9Ko2my"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerpolicy="strict-origin-when-cross-origin"
+  allowfullscreen
+  loading="lazy"
+></iframe>
