@@ -8,7 +8,7 @@ const allPosts = await getCollection('blog');
 <Layout>
   <h1>blog</h1>
   {
-    allPosts.map((post) => (
+    allPosts.sort((a, b) => (b.data.date.getUTCDate() - a.data.date.getUTCDate())).map((post) => (
       <a href={`/blog/${post.slug}`} class="no-underline">
         <section>
           <p class="text-sm text-ctp-overlay2">
