@@ -14,7 +14,7 @@ const allPosts = await getCollection('blog');
           <p class="text-sm text-ctp-overlay2">
             {post.data.date.getUTCFullYear()}
             {'-'}
-            {post.data.date.getUTCMonth().toString().padStart(2, '0')}
+            {post.data.date.getMonth().toString().padStart(2, '0')}
             {'-'}
             {post.data.date.getDate().toString().padStart(2, '0')}
           </p>
