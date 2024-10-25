@@ -1,13 +1,111 @@
 ---
-import BaseLayout from "./_base-layout.astro";
-import Sidebar from "./_sidebar.astro";
+import NowPlaying from './_now-playing.astro';
 ---
 
-<BaseLayout>
-  <div class="flex flex-col lg:justify-center lg:flex-row">
-    <main class="p-4 flex-grow max-w-none xl:max-w-4xl xl:ml-64 prose">
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>rdcsq</title>
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=satoshi@1,2&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-ctp-base text-ctp-text max-w-4xl mx-auto my-0 p-4 flex flex-col min-h-svh">
+    <header class="flex w-full pt-2 pb-6 justify-between items-center">
+      <a href="/" class="inline-flex items-center gap-2">
+        <img
+          src="https://avatars.githubusercontent.com/u/140211237"
+          class="size-10 rounded-full inline"
+          aria-hidden="true"
+          alt=""
+        />
+        <h1 class="font-bold text-2xl">rdcsq</h1>
+      </a>
+
+      <nav>
+        <a href="/blog">blog</a>
+        <!-- <span aria-hidden="true">·</span> -->
+      </nav>
+    </header>
+    <main class="prose max-w-none pb-4">
       <slot />
     </main>
-    <Sidebar />
-  </div>
-</BaseLayout>
+    <footer
+      class="mt-auto py-4 gap-4 grid grid-cols-1 lg:grid-cols-[2fr_1fr] border-ctp-overlay0 border-t border-dashed"
+    >
+      <div>
+        <a
+          href="https://bsky.app/profile/rdcsq.com"
+          class="icon"
+          target="_blank"
+          aria-label="Bluesky"
+        >
+          <i class="i-simple-icons-bluesky" aria-details="Bluesky icon"></i>
+        </a>
+        <a
+          href="https://github.com/rdcsq"
+          class="icon"
+          target="_blank"
+          aria-label="GitHub"
+        >
+          <i class="i-simple-icons-github" aria-details="GitHub icon"></i>
+        </a>
+        <p class="text-sm text-ctp-subtext0 mt-2">
+          made with <a href="https://astro.build" class="underline">Astro</a>,
+          using the <a href="https://github.com/catppuccin" class="underline"
+            >Catppuccin</a
+          > color palette and the <a
+            href="https://fontshare.com"
+            class="underline">Satoshi</a
+          > font
+        </p>
+      </div>
+      <section>
+        <NowPlaying />
+      </section>
+    </footer>
+    <script
+      defer
+      src="https://science.rdcsq.com/script.js"
+      data-website-id="b894ac3e-874c-4da5-8507-d8389f51466c"
+      data-domains="rdcsq.me,rdcsq.com"></script>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    font-family: 'Satoshi', sans-serif;
+  }
+
+  .prose :where(p):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
+  .prose {
+    @apply text-ctp-text;
+  }
+
+  .prose h1 {
+    @apply text-ctp-text;
+  }
+
+  .prose h2 {
+    @apply text-ctp-subtext0;
+  }
+
+  .prose a {
+    @apply text-ctp-blue;
+  }
+
+  .prose code {
+    @apply rounded-md bg-ctp-overlay2/20 p-1 text-ctp-overlay2;
+  }
+
+  .icon {
+    @apply inline-flex text-xl items-center justify-center rounded-full p-2 hover:bg-ctp-overlay2/20;
+  }
+</style>

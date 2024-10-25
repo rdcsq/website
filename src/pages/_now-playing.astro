@@ -2,43 +2,46 @@
 const url = import.meta.env.PUBLIC_LASTFM_WORKER_URL;
 ---
 
-<div id="now-playing-card" data-url={url}>
-  <h2
-    class="uppercase text-sm opacity-60 font-bold"
-    id="now-playing-card-title"
+<section id="now-playing-card" data-url={url}>
+  <a
+    class="flex gap-2 items-center"
+    id="now-playing-wrapper"
+    style="display: none;"
+    target="_blank"
+    rel="noopener noreferrer"
   >
-    Currently listening to
-  </h2>
-  <div class="min-h-16">
-    <a
-      class="flex gap-2 items-center pt-1"
-      id="now-playing-wrapper"
-      style="display: none;"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <img aria-hidden="true" class="size-16 aspect-square" id="now-playing-artwork" />
-      <div>
-        <p class="font-bold line-clamp-2" id="now-playing-title"></p>
-        <p class="line-clamp-1" id="now-playing-artist"></p>
-      </div>
-    </a>
-    <p id="now-playing-message">...</p>
-  </div>
-</div>
+    <img
+      alt=""
+      aria-hidden="true"
+      class="size-16 aspect-square"
+      id="now-playing-artwork"
+    />
+    <div>
+      <h2
+        class="uppercase text-sm opacity-60 font-bold"
+        id="now-playing-card-title"
+      >
+        Currently listening to
+      </h2>
+      <p class="font-bold line-clamp-1" id="now-playing-title"></p>
+      <p class="line-clamp-1" id="now-playing-artist"></p>
+    </div>
+  </a>
+  <p id="now-playing-message">...</p>
+</section>
 
 <script>
-  const card = document.getElementById("now-playing-card");
-  const message = document.getElementById("now-playing-message");
+  const card = document.getElementById('now-playing-card');
+  const message = document.getElementById('now-playing-message');
   const wrapper = document.getElementById(
-    "now-playing-wrapper"
+    'now-playing-wrapper',
   ) as HTMLAnchorElement | null;
   const artwork = document.getElementById(
-    "now-playing-artwork"
+    'now-playing-artwork',
   ) as HTMLImageElement | null;
-  const title = document.getElementById("now-playing-title");
-  const artist = document.getElementById("now-playing-artist");
-  const cardTitle = document.getElementById("now-playing-card-title");
+  const title = document.getElementById('now-playing-title');
+  const artist = document.getElementById('now-playing-artist');
+  const cardTitle = document.getElementById('now-playing-card-title');
 
   type NowPlayingResponse = {
     title: string;
@@ -62,15 +65,15 @@ const url = import.meta.env.PUBLIC_LASTFM_WORKER_URL;
       staleDate.setMinutes(staleDate.getMinutes() + 5);
 
       if (!data.current) {
-        cardTitle!.innerText = "Last listened to";
+        cardTitle!.innerText = 'Last listened to';
       }
 
       wrapper!.href = data.url;
       artwork!.src = data.artworkUrl;
       title!.innerText = data.title;
       artist!.innerText = data.artist;
-      wrapper!.style.display = "flex";
-      message!.style.display = "none";
+      wrapper!.style.display = 'flex';
+      message!.style.display = 'none';
     })
     .catch((e) => {
       message!.innerText = "Couldn't load it :(";

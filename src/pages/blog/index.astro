@@ -1,28 +1,39 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../_layout.astro';
+import { Image } from 'astro:assets';
 
 const allPosts = await getCollection('blog');
 ---
 
 <Layout>
   <h1>blog</h1>
-  {
-    allPosts.sort((a, b) => (b.data.date.getUTCDate() - a.data.date.getUTCDate())).map((post) => (
-      <a href={`/blog/${post.slug}`} class="no-underline">
-        <section>
-          <p class="text-sm text-ctp-overlay2">
-            {post.data.date.getUTCFullYear()}
-            {'-'}
-            {(post.data.date.getMonth() + 1).toString().padStart(2, '0')}
-            {'-'}
-            {(post.data.date.getDate() + 1).toString().padStart(2, '0')}
-          </p>
-          <h2>{post.data.title}</h2>
-        </section>
-      </a>
-    ))
-  }
+  <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    {
+      allPosts
+        .sort((a, b) => b.data.date.getUTCDate() - a.data.date.getUTCDate())
+        .map((post) => (
+          <a
+            role="article"
+            href={`/blog/${post.slug}`}
+            class="no-underline group"
+          >
+            <div class="relative not-prose">
+              <Image
+                src={post.data.image}
+                alt={post.data.title}
+                width={500}
+                class="aspect-video mb-3 rounded-lg w-full"
+              />
+              <p class="text-sm text-ctp-overlay2 absolute bg-ctp-crust/80 bottom-0 right-0 px-2 py-1 rounded-br-lg rounded-tl-lg inline-block">
+                {`${post.data.date.getUTCFullYear()}-${(post.data.date.getMonth() + 1).toString().padStart(2, '0')}-${(post.data.date.getDate() + 1).toString().padStart(2, '0')}`}
+              </p>
+            </div>
+            <h2 class="m-0">{post.data.title}</h2>
+          </a>
+        ))
+    }
+  </section>
 </Layout>
 
 <style>

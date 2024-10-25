@@ -1,5 +1,6 @@
 import typography from '@tailwindcss/typography';
 import catppuccin from '@catppuccin/tailwindcss';
+import { getIconCollections, iconsPlugin } from '@egoist/tailwindcss-icons';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -26,5 +27,8 @@ export default {
       prefix: 'ctp',
       defaultFlavour: 'mocha',
     }),
+    iconsPlugin({
+      collections: getIconCollections(['simple-icons'])
+    })
   ],
 };

@@ -1,6 +1,7 @@
 ---
 title: "fixing Celeste's controller support on macOS"
 date: 2024-09-30
+image: thumbnail.webp
 ---
 
 I wanted to play Celeste on macOS, but controller support seemed to be broken. a
@@ -42,7 +43,12 @@ the following command (it compiles a Release build of SDL2 as a shared library
 for x64_64, because Celeste is an x86_64 binary)
 
 ```sh
-xcodebuild -scheme "Shared Library" -configuration Release -arch x86_64 -derivedDataPath out build -quiet
+xcodebuild -scheme "Shared Library" \
+  -configuration Release \ 
+  -arch x86_64 \ 
+  -derivedDataPath out \
+  -quiet \ 
+  build
 ```
 
 the file that interests us is now in
