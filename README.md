@@ -1,0 +1,1 @@
+this is my personal website. it's built with Astro and uses the Catppuccin color schema and Satoshi font (from Fontsource)
