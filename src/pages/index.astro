@@ -1,0 +1,96 @@
+---
+import Layout from './_layout.astro';
+
+const stack: {
+  name: string;
+  class: string;
+}[] = [
+  { name: 'TypeScript', class: 'i-simple-icons-typescript text-blue-500' },
+  { name: 'C#', class: 'i-simple-icons-csharp text-violet-500' },
+  {
+    name: 'Kotlin',
+    class:
+      'i-simple-icons-kotlin bg-gradient-to-tr from-violet-500 to-pink-500',
+  },
+  { name: 'React', class: 'i-simple-icons-react text-blue-500' },
+  { name: 'Vue.js', class: 'i-simple-icons-vuedotjs text-green-400' },
+  { name: 'Tailwind CSS', class: 'i-simple-icons-tailwindcss text-blue-400' },
+  { name: 'Android', class: 'i-simple-icons-android text-green-500' },
+  { name: '.NET', class: 'i-simple-icons-dotnet text-violet-500' },
+  { name: 'Docker', class: 'i-simple-icons-docker text-blue-400' },
+  { name: 'Next.js', class: 'i-simple-icons-nextdotjs text-white' },
+  { name: 'Nuxt', class: 'i-simple-icons-nuxtdotjs text-green-500' },
+];
+
+const projects: {
+  name: string;
+  description: string;
+  link: string;
+  language: string;
+  languageClass: string;
+}[] = [
+  {
+    name: 'webhookserver',
+    description: 'execute commmands through webhooks',
+    link: 'https://github.com/rdcsq/webhookserver',
+    language: 'Go',
+    languageClass: 'bg-blue-500 border-blue-500',
+  },
+];
+---
+
+<Layout>
+  <p>i write code (mostly full-stack web stuff) and listen to music all day.</p>
+  <p>
+    you can find me on
+    <a class="button-link" href="https://github.com/rdcsq" target="_blank">
+      <i class="i-simple-icons-github"></i>
+      <span>GitHub</span>
+    </a>
+    and
+    <a
+      class="button-link"
+      href="https://bsky.app/profile/rdcsq.com"
+      target="_blank"
+    >
+      <i class="i-simple-icons-bluesky"></i>
+      <span>Bluesky</span>
+    </a>
+  </p>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <section>
+      <h2>what i know</h2>
+
+      <div class="flex flex-wrap gap-4 text-xl">
+        {
+          stack.map((item) => (
+            <div class="flex items-center gap-2">
+              <i class={item.class} />
+              <span>{item.name}</span>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+    <section>
+      <h2>personal projects</h2>
+
+      {
+        projects.map((item) => (
+          <a href={item.link} target="_blank" class="not-prose block">
+            <span>
+              <span class="underline text-lg">{item.name}</span>{' '}
+              <span
+                class={`border rounded-full text-sm px-2 ${item.languageClass}`}
+              >
+                {item.language}
+              </span>
+            </span>
+            <p>{item.description}</p>
+          </a>
+        ))
+      }
+    </section>
+  </div>
+</Layout>

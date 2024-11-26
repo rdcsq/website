@@ -1,4 +1,5 @@
 ---
+import ViewTransitions from 'astro/components/ViewTransitions.astro';
 import NowPlaying from './_now-playing.astro';
 ---
 
@@ -12,17 +13,16 @@ import NowPlaying from './_now-playing.astro';
       href="https://api.fontshare.com/v2/css?f[]=satoshi@1,2&display=swap"
       rel="stylesheet"
     />
+    <ViewTransitions />
   </head>
-  <body class="bg-ctp-base text-ctp-text max-w-4xl mx-auto my-0 p-4 flex flex-col min-h-svh">
-    <header class="flex w-full pt-2 pb-6 justify-between items-center">
+  <body
+    class="bg-background text-foreground max-w-4xl mx-auto my-0 p-4 flex flex-col min-h-svh"
+  >
+    <header
+      class="flex w-full pt-2 pb-6 justify-between items-center select-none border-b border-dashed"
+    >
       <a href="/" class="inline-flex items-center gap-2">
-        <img
-          src="https://avatars.githubusercontent.com/u/140211237"
-          class="size-10 rounded-full inline"
-          aria-hidden="true"
-          alt=""
-        />
-        <h1 class="font-bold text-2xl">rdcsq</h1>
+        <h1 class="font-semibold text-2xl">rdcsq</h1>
       </a>
 
       <nav>
@@ -30,13 +30,13 @@ import NowPlaying from './_now-playing.astro';
         <!-- <span aria-hidden="true">·</span> -->
       </nav>
     </header>
-    <main class="prose max-w-none pb-4">
+    <main class="prose max-w-none pb-4 pt-6">
       <slot />
     </main>
     <footer
-      class="mt-auto py-4 gap-4 grid grid-cols-1 lg:grid-cols-[2fr_1fr] border-ctp-overlay0 border-t border-dashed"
+      class="mt-auto py-4 gap-4 grid grid-cols-1 lg:grid-cols-[2fr_1fr] border-foreground border-t border-dashed"
     >
-      <div>
+      <div class="select-none">
         <a
           href="https://bsky.app/profile/rdcsq.com"
           class="icon"
@@ -54,13 +54,8 @@ import NowPlaying from './_now-playing.astro';
           <i class="i-simple-icons-github" aria-details="GitHub icon"></i>
         </a>
         <p class="text-sm text-ctp-subtext0 mt-2">
-          made with <a href="https://astro.build" class="underline">Astro</a>,
-          using the <a href="https://github.com/catppuccin" class="underline"
-            >Catppuccin</a
-          > color palette and the <a
-            href="https://fontshare.com"
-            class="underline">Satoshi</a
-          > font
+          made with <a href="https://astro.build" class="underline">Astro</a>
+          and the <a href="https://fontshare.com" class="underline">Satoshi</a> font
         </p>
       </div>
       <section>
@@ -78,6 +73,10 @@ import NowPlaying from './_now-playing.astro';
 <style is:global>
   :root {
     font-family: 'Satoshi', sans-serif;
+    --color-background: #18181b;
+    --color-foreground: #e4e4e7;
+    --color-foreground-highlight: #fafafa;
+    --color-overlay: #27272a;
   }
 
   .prose :where(p):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
@@ -86,26 +85,32 @@ import NowPlaying from './_now-playing.astro';
   }
 
   .prose {
-    @apply text-ctp-text;
+    @apply text-foreground;
   }
 
-  .prose h1 {
-    @apply text-ctp-text;
+  .prose h1,
+  .prose h2,
+  .prose h3 {
+    @apply text-foreground-highlight font-semibold;
   }
 
-  .prose h2 {
-    @apply text-ctp-subtext0;
+  .prose a:not(.button-link) {
+    @apply text-foreground-highlight;
   }
 
-  .prose a {
-    @apply text-ctp-blue;
+  .astro-code {
+    @apply !bg-overlay;
   }
 
   .prose code {
-    @apply rounded-md bg-ctp-overlay2/20 p-1 text-ctp-overlay2;
+    @apply bg-overlay rounded-md p-1 text-foreground;
   }
 
   .icon {
-    @apply inline-flex text-xl items-center justify-center rounded-full p-2 hover:bg-ctp-overlay2/20;
+    @apply hover:bg-overlay inline-flex items-center justify-center rounded-full p-2 text-xl;
+  }
+
+  .button-link {
+    @apply border-overlay hover:text-overlay inline-flex items-center gap-2 rounded-lg border px-3 py-[0.15rem] align-middle text-foreground no-underline transition-all hover:scale-[1.02] hover:bg-foreground;
   }
 </style>
