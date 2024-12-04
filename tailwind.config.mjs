@@ -7,12 +7,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: 'var(--color-background)',
+        background: 'hsl(var(--color-background))',
         foreground: {
-          DEFAULT: 'var(--color-foreground)',
-          highlight: 'var(--color-foreground-highlight)',
+          DEFAULT: 'hsl(var(--color-foreground))',
+          highlight: 'hsl(var(--color-foreground-highlight))',
         },
-        overlay: 'var(--color-overlay)',
+        overlay: 'hsl(var(--color-overlay))',
       },
       typography: {
         DEFAULT: {

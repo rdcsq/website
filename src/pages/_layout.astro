@@ -30,7 +30,7 @@ import NowPlaying from './_now-playing.astro';
         <!-- <span aria-hidden="true">·</span> -->
       </nav>
     </header>
-    <main class="prose max-w-none pb-4 pt-6">
+    <main class="prose max-w-none pb-8 pt-6">
       <slot />
     </main>
     <footer
@@ -73,10 +73,10 @@ import NowPlaying from './_now-playing.astro';
 <style is:global>
   :root {
     font-family: 'Satoshi', sans-serif;
-    --color-background: #18181b;
-    --color-foreground: #e4e4e7;
-    --color-foreground-highlight: #fafafa;
-    --color-overlay: #27272a;
+    --color-background: 240deg 6% 10%;
+    --color-foreground: 240deg 6% 90%;
+    --color-foreground-highlight: 0deg 0% 98%;
+    --color-overlay: 240deg 4% 16%;
   }
 
   .prose :where(p):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
