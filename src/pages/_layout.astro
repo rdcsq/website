@@ -1,5 +1,5 @@
 ---
-import ViewTransitions from 'astro/components/ViewTransitions.astro';
+import ClientRouter from 'astro/components/ClientRouter.astro';
 import NowPlaying from './_now-playing.astro';
 ---
 
@@ -13,7 +13,7 @@ import NowPlaying from './_now-playing.astro';
       href="https://api.fontshare.com/v2/css?f[]=satoshi@1,2&display=swap"
       rel="stylesheet"
     />
-    <ViewTransitions />
+    <ClientRouter />
   </head>
   <body
     class="bg-background text-foreground max-w-4xl mx-auto my-0 p-4 flex flex-col min-h-svh"

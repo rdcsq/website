@@ -15,7 +15,7 @@ const allPosts = await getCollection('blog');
         .map((post) => (
           <a
             role="article"
-            href={`/blog/${post.slug}`}
+            href={`/blog/${post.id}`}
             class="no-underline group"
           >
             <div class="relative not-prose">
