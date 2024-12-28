@@ -1,4 +1,5 @@
 ---
+import albumBackground from "../assets/album-placeholder.svg?url";
 const url = import.meta.env.PUBLIC_LASTFM_WORKER_URL;
 ---
 
@@ -6,33 +7,31 @@ const url = import.meta.env.PUBLIC_LASTFM_WORKER_URL;
   <a
     class="flex gap-2 items-center"
     id="now-playing-wrapper"
-    style="display: none;"
     target="_blank"
     rel="noopener noreferrer"
   >
     <img
       alt=""
       aria-hidden="true"
-      class="size-16 aspect-square"
+      class="size-[4.25rem] aspect-square"
       id="now-playing-artwork"
+      src={albumBackground}
     />
     <div>
       <h2
         class="uppercase text-sm opacity-60 font-bold"
         id="now-playing-card-title"
       >
-        Currently listening to
+        ...
       </h2>
       <p class="font-bold line-clamp-1" id="now-playing-title"></p>
       <p class="line-clamp-1" id="now-playing-artist"></p>
     </div>
   </a>
-  <p id="now-playing-message">...</p>
 </section>
 
 <script>
   const card = document.getElementById('now-playing-card');
-  const message = document.getElementById('now-playing-message');
   const wrapper = document.getElementById(
     'now-playing-wrapper',
   ) as HTMLAnchorElement | null;
@@ -55,28 +54,22 @@ const url = import.meta.env.PUBLIC_LASTFM_WORKER_URL;
   fetch(card!.dataset.url!)
     .then(async (res) => {
       if (!res.ok) {
-        message!.innerText = "Couldn't load it :(";
+        cardTitle!.innerText = "Couldn't load it :(";
         return;
       }
 
       const data: NowPlayingResponse = await res.json();
 
-      const staleDate = new Date();
-      staleDate.setMinutes(staleDate.getMinutes() + 5);
-
-      if (!data.current) {
-        cardTitle!.innerText = 'Last listened to';
-      }
-
+      cardTitle!.innerText = data.current ? "Currently listening to..." : 'Last listened to';
       wrapper!.href = data.url;
-      artwork!.src = data.artworkUrl;
+      if (data.artworkUrl) {
+        artwork!.src = data.artworkUrl;
+      }
       title!.innerText = data.title;
       artist!.innerText = data.artist;
-      wrapper!.style.display = 'flex';
-      message!.style.display = 'none';
     })
     .catch((e) => {
-      message!.innerText = "Couldn't load it :(";
+      cardTitle!.innerText = "Couldn't load it :(";
       console.error(e);
     });
 </script>

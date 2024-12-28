@@ -1,0 +1,26 @@
+<svg
+  width="100%"
+  height="100%"
+  viewBox="0 0 100 100"
+  version="1.1"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <rect x="0" y="0" width="100" height="100" style="fill: #18181b" />
+  <circle
+    cx="50"
+    cy="50"
+    r="37"
+    style="fill: none; stroke: #27272a; stroke-width: 5.5px"
+  />
+  <path
+    d="M68.91,43.488c-1.931,-5.607 -6.25,-10.068 -11.792,-12.179c5.542,2.111 9.861,6.572 11.792,12.179Z"
+    style="
+      fill: none;
+      stroke: #27272a;
+      stroke-width: 22px;
+      stroke-linecap: square;
+      stroke-linejoin: miter;
+    "
+  />
+  <circle cx="50" cy="50" r="6.813" style="fill: #27272a" />
+</svg>
