@@ -1,41 +1,82 @@
 ---
 import Layout from './_layout.astro';
 
-const stack: {
-  name: string;
-  class: string;
-}[] = [
-  { name: 'TypeScript', class: 'i-simple-icons-typescript text-blue-500' },
-  { name: 'C#', class: 'i-simple-icons-csharp text-violet-500' },
+type Section = {
+  title: string;
+  things: {
+    name: string;
+    class: string;
+  }[];
+};
+
+const whatIKnow: Section[] = [
   {
-    name: 'Kotlin',
-    class:
-      'i-simple-icons-kotlin bg-gradient-to-tr from-violet-500 to-pink-500',
+    title: 'Languages',
+    things: [
+      { name: 'TypeScript', class: 'i-simple-icons-typescript text-blue-500' },
+      { name: 'C#', class: 'i-simple-icons-csharp text-violet-500' },
+      {
+        name: 'Kotlin',
+        class:
+          'i-simple-icons-kotlin bg-gradient-to-tr from-violet-500 to-pink-500',
+      },
+    ],
   },
-  { name: 'React', class: 'i-simple-icons-react text-blue-500' },
-  { name: 'Vue.js', class: 'i-simple-icons-vuedotjs text-green-400' },
-  { name: 'Tailwind CSS', class: 'i-simple-icons-tailwindcss text-blue-400' },
-  { name: 'Android', class: 'i-simple-icons-android text-green-500' },
-  { name: '.NET', class: 'i-simple-icons-dotnet text-violet-500' },
-  { name: 'Docker', class: 'i-simple-icons-docker text-blue-400' },
-  { name: 'Next.js', class: 'i-simple-icons-nextdotjs text-white' },
-  { name: 'Nuxt', class: 'i-simple-icons-nuxtdotjs text-green-500' },
+  {
+    title: 'Web - Frontend',
+    things: [
+      { name: 'React', class: 'i-simple-icons-react text-blue-500' },
+      { name: 'Vue.js', class: 'i-simple-icons-vuedotjs text-green-400' },
+      {
+        name: 'Tailwind CSS',
+        class: 'i-simple-icons-tailwindcss text-blue-400',
+      },
+    ],
+  },
+  {
+    title: 'Frameworks/Technologies',
+    things: [
+      { name: 'Next.js', class: 'i-simple-icons-nextdotjs text-white' },
+      { name: 'Nuxt', class: 'i-simple-icons-nuxtdotjs text-green-500' },
+      { name: '.NET', class: 'i-simple-icons-dotnet text-violet-500' },
+      { name: 'Android', class: 'i-simple-icons-android text-green-500' },
+      { name: 'Docker', class: 'i-simple-icons-docker text-blue-400' },
+    ],
+  },
 ];
 
 const projects: {
   name: string;
   description: string;
   link: string;
-  language: string;
-  languageClass: string;
+  language: [string, string][];
 }[] = [
   {
     name: 'webhookserver',
     description: 'execute commmands through webhooks',
     link: 'https://github.com/rdcsq/webhookserver',
-    language: 'Go',
-    languageClass: 'bg-blue-500 border-blue-500',
+    language: [['Go', 'bg-blue-500 border-blue-500']],
   },
+  {
+    name: 'clipkit',
+    description: 'video storage website',
+    link: 'https://github.com/rdcsq/clipkit',
+    language: [
+      ['React', 'bg-blue-500 border-blue-500'],
+      ['TypeScript', 'bg-blue-500 border-blue-500'],
+      ['React Router', 'bg-red-500 border-red-500'],
+      ['PostgreSQL', 'bg-blue-500 border-blue-500'],
+    ],
+  },
+  {
+    name: 'this website',
+    description: 'literally this website',
+    link: 'https://github.com/rdcsq/website',
+    language: [
+      ['Astro', 'bg-orange-500 border-orange-500'],
+      ['TypeScript', 'bg-blue-500 border-blue-500']
+    ]
+  }
 ];
 ---
 
@@ -61,31 +102,37 @@ const projects: {
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
     <section>
       <h2>what i know</h2>
-
-      <div class="flex flex-wrap gap-4 text-xl">
-        {
-          stack.map((item) => (
-            <div class="flex items-center gap-2">
-              <i class={item.class} />
-              <span>{item.name}</span>
+      {
+        whatIKnow.map((item) => (
+          <>
+            <h3 class="text-base">{item.title}</h3>
+            <div class="flex flex-wrap gap-4 text-xl">
+              {item.things.map((thing) => (
+                <div class="flex items-center gap-2">
+                  <i class={thing.class} />
+                  <span>{thing.name}</span>
+                </div>
+              ))}
             </div>
-          ))
-        }
-      </div>
+          </>
+        ))
+      }
     </section>
     <section>
       <h2>personal projects</h2>
 
       {
         projects.map((item) => (
-          <a href={item.link} target="_blank" class="not-prose block">
+          <a href={item.link} target="_blank" class="not-prose block mb-4">
             <span>
-              <span class="underline text-lg">{item.name}</span>{' '}
-              <span
-                class={`border rounded-full text-sm px-2 ${item.languageClass}`}
-              >
-                {item.language}
-              </span>
+              <span class="underline text-lg pr-1">{item.name}</span>
+              {item.language.map((language) => (
+                <span
+                  class={`inline-block border rounded-full text-sm px-2 ${language[1]} mr-2`}
+                >
+                  {language[0]}
+                </span>
+              ))}
             </span>
             <p>{item.description}</p>
           </a>
