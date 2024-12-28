@@ -15,11 +15,9 @@ import NowPlaying from './_now-playing.astro';
     />
     <ClientRouter />
   </head>
-  <body
-    class="bg-background text-foreground max-w-4xl mx-auto my-0 p-4 flex flex-col min-h-svh"
-  >
+  <body class="bg-background text-foreground flex flex-col min-h-svh items-center">
     <header
-      class="flex w-full pt-2 pb-6 justify-between items-center select-none border-b border-dashed"
+      class="flex w-full pt-4 px-4 pb-5 justify-between items-center select-none max-w-4xl"
     >
       <a href="/" class="inline-flex items-center gap-2">
         <h1 class="font-semibold text-2xl">rdcsq</h1>
@@ -30,11 +28,13 @@ import NowPlaying from './_now-playing.astro';
         <!-- <span aria-hidden="true">·</span> -->
       </nav>
     </header>
-    <main class="prose max-w-none pb-8 pt-6">
-      <slot />
-    </main>
+    <div class="bg-overlay-inverted rounded-3xl flex-grow w-full">
+      <main class="prose max-w-4xl mx-auto my-0 px-4 pb-8 pt-6">
+        <slot />
+      </main>
+    </div>
     <footer
-      class="mt-auto py-4 gap-4 grid grid-cols-1 lg:grid-cols-[2fr_1fr] border-foreground border-t border-dashed"
+      class="px-4 py-6 gap-4 grid grid-cols-1 lg:grid-cols-[2fr_1fr] max-w-4xl w-full"
     >
       <div class="select-none">
         <a
@@ -77,6 +77,7 @@ import NowPlaying from './_now-playing.astro';
     --color-foreground: 240deg 6% 90%;
     --color-foreground-highlight: 0deg 0% 98%;
     --color-overlay: 240deg 4% 16%;
+    --color-overlay-inverted: 240deg 6% 7%;
   }
 
   .prose :where(p):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
@@ -91,7 +92,7 @@ import NowPlaying from './_now-playing.astro';
   .prose h1,
   .prose h2,
   .prose h3 {
-    @apply text-foreground-highlight font-semibold;
+    @apply font-semibold text-foreground-highlight;
   }
 
   .prose a:not(.button-link) {
@@ -103,14 +104,14 @@ import NowPlaying from './_now-playing.astro';
   }
 
   .prose code {
-    @apply bg-overlay rounded-md p-1 text-foreground;
+    @apply rounded-md bg-overlay p-1 text-foreground;
   }
 
   .icon {
-    @apply hover:bg-overlay inline-flex items-center justify-center rounded-full p-2 text-xl;
+    @apply inline-flex items-center justify-center rounded-full p-2 text-xl hover:bg-overlay;
   }
 
   .button-link {
-    @apply border-overlay hover:text-overlay inline-flex items-center gap-2 rounded-lg border px-3 py-[0.15rem] align-middle text-foreground no-underline transition-all hover:scale-[1.02] hover:bg-foreground;
+    @apply inline-flex items-center gap-2 rounded-lg border border-overlay px-3 py-[0.15rem] align-middle text-foreground no-underline transition-all hover:scale-[1.02] hover:bg-foreground hover:text-overlay;
   }
 </style>

@@ -12,7 +12,10 @@ export default {
           DEFAULT: 'hsl(var(--color-foreground))',
           highlight: 'hsl(var(--color-foreground-highlight))',
         },
-        overlay: 'hsl(var(--color-overlay))',
+        overlay: {
+          DEFAULT: 'hsl(var(--color-overlay))',
+          inverted: 'hsl(var(--color-overlay-inverted))',
+        }
       },
       typography: {
         DEFAULT: {
