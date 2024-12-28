@@ -1,1 +1,1 @@
-this is my personal website. it's built with Astro and uses the Catppuccin color scheme and Satoshi font (from Fontshare)
+this is my personal website, made with Astro.
