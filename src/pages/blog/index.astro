@@ -26,7 +26,7 @@ const allPosts = await getCollection('blog');
                 class="aspect-video mb-3 rounded-lg w-full"
               />
               <p class="text-sm text-white absolute bg-background/80 bottom-0 right-0 px-2 py-1 rounded-br-lg rounded-tl-lg inline-block">
-                {`${post.data.date.getUTCFullYear()}-${(post.data.date.getMonth() + 1).toString().padStart(2, '0')}-${(post.data.date.getDate() + 1).toString().padStart(2, '0')}`}
+                {`${post.data.date.getUTCFullYear()}-${(post.data.date.getUTCMonth() + 1).toString().padStart(2, '0')}-${post.data.date.getUTCDate().toString().padStart(2, '0')}`}
               </p>
             </div>
             <h2 class="m-0">{post.data.title}</h2>
