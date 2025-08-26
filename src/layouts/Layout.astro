@@ -1,0 +1,271 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import '../styles/m3/_main.css';
+import '../styles/m3/_colors.scss';
+import '@fontsource-variable/outfit';
+
+const { pathname } = Astro.url;
+
+const routes = [
+    ['home', '/', 'lucide--home'],
+    ['blog', '/blog', 'lucide--file-text'],
+];
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/webp" href="/icon.webp" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>rdcsq</title>
+        <ClientRouter />
+    </head>
+    <body>
+        <div
+            class="from-background sticky top-0 z-50 w-full bg-gradient-to-b from-30% to-transparent p-4"
+        >
+            <header class="font-display relative w-full">
+                <div
+                    class:list={[
+                        'bg-navigation border-card-outline inline-block rounded-full border px-4 py-3',
+                        pathname === '/' && 'invisible',
+                    ]}
+                >
+                    rdcsq
+                </div>
+                <div
+                    class="border-card-outline bg-navigation absolute top-0 right-0 flex items-end justify-start overflow-hidden rounded-4xl border transition-all ease-out"
+                    id="navbar"
+                >
+                    <div class="relative w-full">
+                        <nav
+                            id="navbar-big"
+                            class="invisible absolute bottom-0 left-0 opacity-0 transition-opacity"
+                        >
+                            <ul class="p-3">
+                                {
+                                    routes.map(([title, path, icon]) => (
+                                        <li>
+                                            <a
+                                                href={path}
+                                                aria-current={
+                                                    path
+                                                        .slice(1)
+                                                        .split('/')[0] ===
+                                                    pathname
+                                                        .slice(1)
+                                                        .split('/')[0]
+                                                        ? 'page'
+                                                        : 'false'
+                                                }
+                                                class:list={[
+                                                    'flex w-full items-center rounded-full px-3 py-2 transition-all',
+                                                    "not-aria-[current='page']:text-on-navigation",
+                                                    "not-aria-[current='page']:hover:bg-navigation-hover",
+                                                    "aria-[current='page']:bg-navigation-active",
+                                                    "aria-[current='page']:text-on-navigation-active",
+                                                    "aria-[current='page']:hover:bg-navigation-active-hover",
+                                                ]}
+                                            >
+                                                <i
+                                                    class:list={[
+                                                        icon,
+                                                        'iconify mr-2 align-middle',
+                                                    ]}
+                                                />
+                                                {title}
+                                            </a>
+                                        </li>
+                                    ))
+                                }
+                            </ul>
+                        </nav>
+                    </div>
+                    <div
+                        class="flex shrink-0 rounded-full p-1 transition-opacity"
+                        id="navbar-small"
+                    >
+                        <nav class="inline-block">
+                            <ul>
+                                {
+                                    routes.map(([title, path, icon]) => (
+                                        <li class="group inline-block">
+                                            <a
+                                                href={path}
+                                                aria-current={
+                                                    path
+                                                        .slice(1)
+                                                        .split('/')[0] ===
+                                                    pathname
+                                                        .slice(1)
+                                                        .split('/')[0]
+                                                        ? 'page'
+                                                        : 'false'
+                                                }
+                                                class:list={[
+                                                    'block rounded-full px-3 py-2 transition-all sm:not-group-last:mr-1',
+                                                    "not-aria-[current='page']:text-on-navigation",
+                                                    "not-aria-[current='page']:hover:bg-navigation-hover",
+                                                    "not-aria-[current='page']:hidden",
+                                                    "not-aria-[current='page']:sm:block",
+                                                    "aria-[current='page']:bg-navigation-active",
+                                                    "aria-[current='page']:text-on-navigation-active",
+                                                    "aria-[current='page']:hover:bg-navigation-active-hover",
+                                                ]}
+                                            >
+                                                <i
+                                                    class:list={[
+                                                        icon,
+                                                        'iconify mr-1 mb-1 align-middle',
+                                                    ]}
+                                                />
+                                                {title}
+                                            </a>
+                                        </li>
+                                    ))
+                                }
+                            </ul>
+                        </nav>
+                        <button
+                            id="menu"
+                            type="button"
+                            class="not-aria-[current='page']:text-on-navigation not-aria-[current='page']:hover:bg-navigation-hover inline-block rounded-full px-3 py-2 transition-all sm:hidden ml-1"
+                        >
+                            <i
+                                class="iconify lucide--ellipsis mb-0.5 align-middle"
+                            ></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <main class="mx-auto my-0 max-w-3xl p-4">
+            <slot />
+        </main>
+    </body>
+</html>
+
+<script is:inline>
+    const validThemes = ['light', 'light-hc', 'dark', 'dark-hc'];
+
+    function getThemePreference() {
+        if (
+            typeof localStorage !== 'undefined' &&
+            validThemes.includes(localStorage.getItem('theme') || '')
+        ) {
+            return localStorage.getItem('theme');
+        }
+
+        return null;
+    }
+
+    function configureTheme() {
+        const theme = getThemePreference();
+        if (theme) {
+            document.documentElement.dataset.theme = getThemePreference();
+        }
+    }
+
+    configureTheme();
+
+    document.addEventListener('astro:after-swap', configureTheme);
+</script>
+
+<script is:inline>
+    const sm = 640; // px
+
+    let navbar;
+    let navbarSmall;
+    let navbarBig;
+    let menuButton;
+
+    let isOpen = false;
+    let parentWidth;
+    let parentHeight;
+    let bigWidth;
+    let bigHeight;
+
+    function reset() {
+        navbar = document.getElementById('navbar');
+        navbarSmall = document.getElementById('navbar-small');
+        navbarBig = document.getElementById('navbar-big');
+        menuButton = document.getElementById('menu');
+        isOpen = false;
+        setupListeners();
+    }
+
+    function calculateSize() {
+        if (parentWidth && parentHeight && bigWidth && bigHeight) return;
+
+        let boundingRect = navbar.getBoundingClientRect();
+        parentHeight = boundingRect.height;
+        parentWidth = boundingRect.width;
+
+        boundingRect = navbarBig.getBoundingClientRect();
+        bigHeight = Math.max(boundingRect.height, parentHeight);
+        bigWidth = Math.max(boundingRect.width, parentWidth);
+    }
+
+    function setupListeners() {
+        document.addEventListener('resize', () => {
+            if (window.innerWidth >= sm) {
+                navbar.style.width = undefined;
+                navbar.style.height = undefined;
+                isOpen = false;
+            }
+        });
+
+        menuButton.addEventListener('click', (e) => {
+            if (window.innerWidth >= sm) return;
+
+            calculateSize();
+            navbarBig.style.width = `${bigWidth * 1.2}px`;
+
+            isOpen = true;
+            navbar.style.width = `${parentWidth}px`;
+            navbar.style.height = `${parentHeight}px`;
+            navbarSmall.classList.add('opacity-0');
+            navbarBig.classList.remove('invisible');
+            e.stopPropagation();
+            setTimeout(() => {
+                navbar.style.width = `${bigWidth * 1.2}px`;
+                navbar.style.height = `${bigHeight}px`;
+                navbarBig.classList.remove('opacity-0');
+                navbarBig.classList.add('opacity-100');
+            }, 50);
+            setTimeout(() => {
+                navbarSmall.classList.add('invisible');
+            }, 100);
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!isOpen || window.innerWidth >= sm) return;
+
+            if (e.target !== navbar) {
+                e.stopPropagation();
+                navbarSmall.classList.remove('invisible');
+                navbar.style.width = `${parentWidth}px`;
+                navbar.style.height = `${parentHeight}px`;
+                navbarSmall.classList.remove('opacity-0');
+                navbarBig.classList.add('invisible');
+                navbarBig.classList.add('opacity-0');
+                navbarBig.classList.remove('opacity-100');
+
+                setTimeout(() => {
+                    navbar.style.width = null;
+                    navbar.style.height = null;
+                }, 450);
+            }
+        });
+    }
+
+    reset();
+    document.addEventListener('astro:after-swap', reset);
+</script>
+
+<style>
+    #navbar {
+        transition: all 0.45s cubic-bezier(.19,1.26,.64,1);
+    }
+</style>

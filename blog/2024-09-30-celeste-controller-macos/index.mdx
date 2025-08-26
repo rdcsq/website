@@ -2,6 +2,7 @@
 title: "fixing Celeste's controller support on macOS"
 date: 2024-09-30
 image: thumbnail.webp
+summary: "recompile the SDL2 library and replace it in the game's files."
 ---
 
 I wanted to play Celeste on macOS, but controller support seemed to be broken. a
@@ -44,15 +45,14 @@ for x64_64, because Celeste is an x86_64 binary)
 
 ```sh
 xcodebuild -scheme "Shared Library" \
-  -configuration Release \ 
-  -arch x86_64 \ 
+  -configuration Release \
+  -arch x86_64 \
   -derivedDataPath out \
-  -quiet \ 
+  -quiet \
   build
 ```
 
-the file that interests us is now in
-`[sdl2 folder]/Xcode/SDL/out/Build/Products/Release/libSDL2.dylib`
+the file that interests us is now in `[SDL2 folder]/Xcode/SDL/out/Build/Products/Release/libSDL2.dylib`
 
 ## replace the SDL2 library in Celeste
 
@@ -64,13 +64,4 @@ with the new one (keep the same name: `libSDL2-2.0.0.dylib`)
 
 it should now work :)
 
-<iframe
-  class="aspect-video w-full"
-  src="https://www.youtube-nocookie.com/embed/OvdSUbJUhes"
-  title="YouTube video player"
-  frameborder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-  referrerpolicy="strict-origin-when-cross-origin"
-  allowfullscreen
-  loading="lazy"
-></iframe>
+<iframe class="aspect-video w-full" src="https://www.youtube-nocookie.com/embed/OvdSUbJUhes" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>

@@ -1,7 +1,15 @@
 {
-    "proseWrap": "always",
-    "semi": true,
+    "plugins": ["prettier-plugin-astro", "prettier-plugin-tailwindcss"],
     "singleQuote": true,
-    "plugins": ["prettier-plugin-tailwindcss"],
-    "trailingComma": "all"
+    "trailingComma": "all",
+    "tabWidth": 4,
+    "semi": true,
+    "overrides": [
+        {
+            "files": "*.astro",
+            "options": {
+                "parser": "astro"
+            }
+        }
+    ]
 }

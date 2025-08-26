@@ -1,0 +1,118 @@
+@import 'tailwindcss';
+@plugin "@tailwindcss/typography";
+@plugin "@iconify/tailwind4" {
+    prefixes: logos, devicon, lucide;
+    scale: 1.2;
+}
+
+@theme inline {
+    /* General */
+    --breakpoint-xs: 24rem;
+
+    --color-primary: var(--md-sys-color-primary);
+    --color-primary-hover: color-mix(
+        in srgb,
+        var(--md-sys-color-primary),
+        var(--md-sys-color-on-primary) 8%
+    );
+    --color-on-primary: var(--md-sys-color-on-primary);
+
+    --color-background: var(--md-sys-color-surface);
+    --color-on-background: var(--md-sys-color-on-surface);
+
+    --color-code: var(--md-sys-color-surface-container-high);
+
+    /* Card */
+    --color-card: var(--md-sys-color-surface-container);
+    --color-card-hover: color-mix(
+        in srgb,
+        var(--md-sys-color-surface-container),
+        var(--md-sys-color-on-surface) 8%
+    );
+    --color-on-card: var(--md-sys-color-on-surface);
+    --color-card-outline: var(--md-sys-color-outline-variant);
+
+    /* Navigation */
+    --color-navigation: var(--md-sys-color-surface-container);
+    --color-on-navigation: var(--md-sys-color-on-surface-variant);
+    --color-navigation-hover: color-mix(
+        in srgb,
+        transparent,
+        var(--md-sys-color-primary) 8%
+    );
+    --color-navigation-active: var(--md-sys-color-primary);
+    --color-navigation-active-hover: color-mix(
+        in srgb,
+        var(--md-sys-color-primary),
+        var(--md-sys-color-on-primary) 8%
+    );
+    --color-on-navigation-active: var(--md-sys-color-on-primary);
+
+    /* Chips */
+    --color-chip: var(--md-sys-color-surface-container-high);
+    --color-on-chip: var(--md-sys-color-on-surface);
+    --color-on-chip-icon: var(--md-sys-color-primary);
+
+    /* Fonts */
+    --font-display: 'Outfit Variable', sans-serif;
+}
+
+:root {
+    background-color: var(--color-background);
+    color: var(--color-on-background);
+    font-family: 'Outfit Variable', sans-serif;
+    font-feature-settings: 'ss02' 1;
+}
+
+article > h1,
+article > h2,
+article > h3,
+article > h4,
+article > h5,
+article > h6 {
+    @apply text-primary;
+}
+
+p {
+    @apply tracking-wide;
+}
+
+.card {
+    @apply bg-card border-card-outline mb-4 rounded-2xl border p-4;
+}
+
+.hoverable-card {
+    @apply hover:bg-card-hover transition-colors
+}
+
+.prose :where(p):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.prose {
+    @apply text-on-background/95;
+    max-width: none;
+}
+
+.prose h1,
+.prose h2,
+.prose h3 {
+    @apply text-on-background font-semibold;
+}
+
+.prose a:not(.button-link) {
+    @apply text-on-background;
+}
+
+.astro-code {
+    @apply bg-code;
+}
+
+.prose code {
+    @apply bg-code text-on-background rounded-md p-1 break-all;
+}
+
+.prose code::before, .prose code::after {
+    content: '' !important;
+}

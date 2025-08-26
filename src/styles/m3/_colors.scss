@@ -1,0 +1,42 @@
+@use './light.scss';
+@use './light-hc.scss';
+@use './dark.scss';
+@use './dark-hc.scss';
+
+:root:not([data-theme]) {
+    @include light.light-theme;
+}
+
+:root[data-theme='light'] {
+    @include light.light-theme;
+}
+
+:root[data-theme='light-hc'] {
+    @include light-hc.light-hc;
+}
+
+@media (prefers-contrast: more) {
+    :root:not([data-theme]) {
+        @include light-hc.light-hc;
+    }
+}
+
+:root[data-theme='dark'] {
+    @include dark.dark-theme;
+}
+
+:root[data-theme='dark-hc'] {
+    @include dark-hc.dark-hc;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) {
+        @include dark.dark-theme;
+    }
+
+    @media (prefers-contrast: more) {
+        :root:not([data-theme]) {
+            @include dark-hc.dark-hc;
+        }
+    }
+}

@@ -1,0 +1,10 @@
+@import 'tailwindcss';
+@plugin "@tailwindcss/typography";
+@plugin "@iconify/tailwind4" {
+    prefixes: logos, devicon, lucide;
+    scale: 1.2;
+}
+
+@theme {
+    --color-background:
+}

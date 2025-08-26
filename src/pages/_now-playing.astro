@@ -1,75 +1,47 @@
 ---
-import albumBackground from "../assets/album-placeholder.svg?url";
-const url = import.meta.env.PUBLIC_LASTFM_WORKER_URL;
+import albumBackground from '../assets/album-placeholder.svg?url';
+import { loadSong } from '../lib/now-playing';
+const song = await loadSong();
 ---
 
-<section id="now-playing-card" data-url={url}>
-  <a
-    class="flex gap-2 items-center"
-    id="now-playing-wrapper"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    <img
-      alt=""
-      aria-hidden="true"
-      class="size-[4.25rem] aspect-square"
-      id="now-playing-artwork"
-      src={albumBackground}
-    />
-    <div>
-      <h2
-        class="uppercase text-sm opacity-60 font-bold"
-        id="now-playing-card-title"
-      >
-        ...
-      </h2>
-      <p class="font-bold line-clamp-1" id="now-playing-title"></p>
-      <p class="line-clamp-1" id="now-playing-artist"></p>
-    </div>
-  </a>
-</section>
-
-<script>
-  const card = document.getElementById('now-playing-card');
-  const wrapper = document.getElementById(
-    'now-playing-wrapper',
-  ) as HTMLAnchorElement | null;
-  const artwork = document.getElementById(
-    'now-playing-artwork',
-  ) as HTMLImageElement | null;
-  const title = document.getElementById('now-playing-title');
-  const artist = document.getElementById('now-playing-artist');
-  const cardTitle = document.getElementById('now-playing-card-title');
-
-  type NowPlayingResponse = {
-    title: string;
-    artist: string;
-    artworkUrl: string;
-    url: string;
-    current: boolean;
-    timestamp: string;
-  };
-
-  fetch(card!.dataset.url!)
-    .then(async (res) => {
-      if (!res.ok) {
-        cardTitle!.innerText = "Couldn't load it :(";
-        return;
-      }
-
-      const data: NowPlayingResponse = await res.json();
-
-      cardTitle!.innerText = data.current ? "Currently listening to..." : 'Last listened to';
-      wrapper!.href = data.url;
-      if (data.artworkUrl) {
-        artwork!.src = data.artworkUrl;
-      }
-      title!.innerText = data.title;
-      artist!.innerText = data.artist;
-    })
-    .catch((e) => {
-      cardTitle!.innerText = "Couldn't load it :(";
-      console.error(e);
-    });
-</script>
+{
+    song && (
+        <a
+            href={song.url}
+            id="now-playing-wrapper"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            <section class="card hoverable-card">
+                <h2
+                    class="text-primary mb-2 text-2xl"
+                    id="now-playing-card-title"
+                >
+                    {song.nowPlaying
+                        ? 'currently listening to...'
+                        : 'was listening to...'}
+                </h2>
+                <div>
+                    <img
+                        alt=""
+                        aria-hidden="true"
+                        class="border-card-outline inline-block aspect-square size-[4.25rem] rounded-lg border"
+                        id="now-playing-artwork"
+                        src={song.image || albumBackground}
+                    />
+                    <div class="ml-2 inline-block align-middle">
+                        <p
+                            class="line-clamp-1 font-bold"
+                            id="now-playing-title"
+                        >
+                            {song.title}
+                        </p>
+                        <p class="line-clamp-1" id="now-playing-artist">
+                            {song.artist}
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </a>
+    )
+}

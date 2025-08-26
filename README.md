@@ -1,1 +1,0 @@
-this is my personal website, made with Astro.

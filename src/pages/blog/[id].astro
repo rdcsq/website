@@ -1,24 +1,39 @@
 ---
+export const prerender = true;
+
 import type { GetStaticPaths } from 'astro';
 import { getCollection, render } from 'astro:content';
-import Layout from '../_layout.astro';
+import Layout from '../../layouts/Layout.astro';
 
 export const getStaticPaths = (async () => {
-  const blogEntries = await getCollection('blog');
-  return blogEntries.map((post) => ({
-    params: { id: post.id },
-    props: { post },
-  }));
+    const blogEntries = await getCollection('blog');
+    return blogEntries.map((post) => ({
+        params: { id: post.id },
+        props: { post },
+    }));
 }) satisfies GetStaticPaths;
 
 const { post } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<title>{post.data.title} - rdcsq's blog</title>
+<title>{post.data.title} - rdcsq</title>
 <Layout>
-  <article>
-    <h1>{post.data.title}</h1>
-    <Content />
-  </article>
+    <article class="prose">
+        <h1 class="!text-primary mb-2">{post.data.title}</h1>
+        <p class="pb-4 text-sm">
+            {
+                `${post.data.date.getUTCFullYear()}-${(post.data.date.getUTCMonth() + 1).toString().padStart(2, '0')}-${post.data.date.getUTCDate().toString().padStart(2, '0')}`
+            }
+        </p>
+        {
+            post.data.summary && (
+                <details open class="bg-card mb-6 rounded-lg px-4 py-2">
+                    <summary>summary (written by a human)</summary>
+                    {post.data.summary}
+                </details>
+            )
+        }
+        <Content />
+    </article>
 </Layout>

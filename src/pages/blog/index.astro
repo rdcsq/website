@@ -1,43 +1,51 @@
 ---
+export const prerender = true;
+
+import Image from 'astro/components/Image.astro';
 import { getCollection } from 'astro:content';
-import Layout from '../_layout.astro';
-import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
 
 const allPosts = await getCollection('blog');
 ---
 
 <Layout>
-  <h1>blog</h1>
-  <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-    {
-      allPosts
-        .sort((a, b) => b.data.date.getUTCDate() - a.data.date.getUTCDate())
-        .map((post) => (
-          <a
-            role="article"
-            href={`/blog/${post.id}`}
-            class="no-underline group"
-          >
-            <div class="relative not-prose">
-              <Image
-                src={post.data.image}
-                alt={post.data.title}
-                width={500}
-                class="aspect-video mb-3 rounded-lg w-full"
-              />
-              <p class="text-sm text-white absolute bg-background/80 bottom-0 right-0 px-2 py-1 rounded-br-lg rounded-tl-lg inline-block">
-                {`${post.data.date.getUTCFullYear()}-${(post.data.date.getUTCMonth() + 1).toString().padStart(2, '0')}-${post.data.date.getUTCDate().toString().padStart(2, '0')}`}
-              </p>
-            </div>
-            <h2 class="m-0">{post.data.title}</h2>
-          </a>
-        ))
-    }
-  </section>
+    <h2 class="text-primary mb-12 text-4xl font-semibold">blog</h2>
+    <div>
+        {
+            allPosts
+                .sort(
+                    (a, b) =>
+                        b.data.date.getUTCDate() - a.data.date.getUTCDate(),
+                )
+                .map((post, i) => (
+                    <a
+                        role="article"
+                        href={`/blog/${post.id}`}
+                        class:list={[
+                            'bg-card border-card-outline relative flex flex-col border p-4 transition-all first:rounded-t-xl last:rounded-b-xl',
+                            '-mt-8 translate-y-0 pb-12 last:pb-4 not-last:hover:-translate-y-2 last:hover:-translate-y-4 last:hover:pb-8',
+                        ]}
+                        style={`z-index: ${i + 10};`}
+                    >
+                        <div class="align-center flex flex-col items-center gap-4 sm:flex-row">
+                            <Image
+                                src={post.data.image}
+                                alt={''}
+                                class="border-card-outline sm:max-w-64 rounded-lg border"
+                            />
+                            <div class="w-full">
+                                <h3 class="text-primary text-lg">
+                                    {post.data.title}
+                                </h3>
+                                <p class="line-clamp-2">
+                                    {post.data.summary ??
+                                        post.body?.substring(0, 300)}
+                                </p>
+                                <span class="font-mono text-sm opacity-60">{`${post.data.date.getUTCFullYear()}-${(post.data.date.getUTCMonth() + 1).toString().padStart(2, '0')}-${post.data.date.getUTCDate().toString().padStart(2, '0')}`}</span>
+                            </div>
+                        </div>
+                    </a>
+                ))
+        }
+    </div>
 </Layout>
-
-<style>
-  h2 {
-    margin-top: 0;
-  }
-</style>

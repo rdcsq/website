@@ -1,0 +1,149 @@
+---
+const programming = [
+    {
+        name: 'languages',
+        things: [
+            {
+                title: 'JavaScript',
+                className: 'logos--javascript',
+            },
+            {
+                title: 'TypeScript',
+                className: 'logos--typescript-icon',
+            },
+            {
+                title: 'C#',
+                className: 'logos--c-sharp',
+            },
+            {
+                title: 'Java',
+                className: 'logos--java',
+            },
+            {
+                title: 'Kotlin',
+                className: 'logos--kotlin-icon',
+            },
+            {
+                title: 'SQL',
+                className: 'iconify text-primary lucide--database',
+            },
+            {
+                title: 'Go',
+                className: 'logos--go',
+            },
+        ],
+    },
+    {
+        name: 'frameworks',
+        things: [
+            {
+                title: 'React',
+                className: 'logos--react',
+            },
+            {
+                title: 'Vue',
+                className: 'logos--vue',
+            },
+            {
+                title: 'Astro',
+                className: 'logos--astro-icon',
+            },
+            {
+                title: 'Jetpack Compose',
+                className: 'devicon--jetpackcompose',
+            },
+            {
+                title: 'Tailwind CSS',
+                className: 'logos--tailwindcss-icon',
+            },
+            {
+                title: '.NET',
+                className: 'logos--dotnet',
+            },
+        ],
+    },
+    {
+        name: 'metaframeworks',
+        things: [
+            {
+                title: 'Next.js',
+                className: 'logos--nextjs-icon',
+            },
+            {
+                title: 'React Router/Remix',
+                className: 'logos--react-router',
+            },
+            {
+                title: 'Nuxt',
+                className: 'logos--nuxt-icon',
+            },
+            {
+                title: 'Express.js',
+                className: 'devicon--express',
+            },
+            {
+                title: 'Hono',
+                className: 'logos--hono',
+            },
+        ],
+    },
+    {
+        name: 'tools',
+        things: [
+            {
+                title: 'Git',
+                className: 'logos--git-icon',
+            },
+            {
+                title: 'GitHub',
+                className: 'logos--github-icon',
+            },
+            {
+                title: 'GitLab',
+                className: 'logos--gitlab',
+            },
+            {
+                title: 'Docker',
+                className: 'logos--docker-icon',
+            },
+            {
+                title: 'PostgreSQL',
+                className: 'logos--postgresql',
+            },
+            {
+                title: 'SQLite',
+                className: 'devicon--sqlite',
+            },
+            {
+                title: 'Microsoft SQL Server',
+                className: 'devicon--microsoftsqlserver',
+            },
+            {
+                title: 'Bun',
+                className: 'logos--bun',
+            },
+        ],
+    },
+];
+---
+
+<section class="card">
+    <h2 class="text-primary mb-2 text-2xl">programming</h2>
+    {
+        programming.map((stack) => (
+            <>
+                <h3 class="text-primary mb-2">{stack.name}</h3>
+                <div class="mb-2 flex flex-wrap gap-2">
+                    {stack.things.map((thing) => (
+                        <div class="bg-chip text-on-chip block items-center rounded-lg px-2 py-1">
+                            <i
+                                class={`${thing.className.includes('iconify') ? '' : 'iconify-color'} ${thing.className} mr-1 align-middle`}
+                            />
+                            <span class="align-middle">{thing.title}</span>
+                        </div>
+                    ))}
+                </div>
+            </>
+        ))
+    }
+</section>
