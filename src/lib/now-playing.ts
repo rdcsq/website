@@ -1,3 +1,5 @@
+import { LASTFM_API_KEY, LASTFM_USER } from 'astro:env/server';
+
 type LastFmGetRecentTracks = {
     recenttracks: {
         track: {
@@ -16,8 +18,8 @@ type LastFmGetRecentTracks = {
     };
 };
 
-const apiKey = import.meta.env.LASTFM_API_KEY;
-const user = import.meta.env.LASTFM_USER;
+const apiKey = LASTFM_API_KEY;
+const user = LASTFM_USER;
 
 let cache: LastFmGetRecentTracks | undefined;
 let lastCached: Date | undefined;
@@ -31,9 +33,9 @@ export async function loadSong() {
         !lastCached ||
         currentTime.getTime() - lastCached.getTime() >= 15 * 1000
     ) {
-        const req = await fetch(
-            `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${user}&api_key=${apiKey}&format=json&limit=1`,
-        );
+        const url = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${user}&api_key=${apiKey}&format=json&limit=1`;
+        console.log(url);
+        const req = await fetch(url);
 
         if (!req.ok) {
             return;
