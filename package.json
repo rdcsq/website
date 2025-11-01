@@ -9,8 +9,8 @@
         "astro": "astro"
     },
     "dependencies": {
-        "@astrojs/node": "9.4.3",
-        "astro": "5.13.5"
+        "@astrojs/node": "9.5.0",
+        "astro": "5.15.3"
     },
     "devDependencies": {
         "@types/bun": "^1.2.19",
@@ -18,7 +18,7 @@
         "prettier-plugin-astro": "^0.14.1",
         "prettier-plugin-tailwindcss": "^0.6.13",
         "sass-embedded": "^1.89.2",
-        "@astrojs/mdx": "4.3.4",
+        "@astrojs/mdx": "4.3.9",
         "@fontsource-variable/outfit": "^5.2.6",
         "@iconify-json/devicon": "^1.2.29",
         "@iconify-json/logos": "^1.2.4",
