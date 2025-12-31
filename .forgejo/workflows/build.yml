@@ -16,9 +16,7 @@ jobs:
         run: | 
           pnpm install --frozen-lockfile
           pnpm run build
-      - name: deploy
-        uses: cloudflare/wrangler-action@v3
+          pnpm wrangler pages deploy dist ---project-name=rdcsq
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=rdcsq
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
