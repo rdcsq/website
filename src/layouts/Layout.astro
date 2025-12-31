@@ -9,6 +9,7 @@ const { pathname } = Astro.url;
 const routes = [
     ['home', '/', 'lucide--home'],
     ['blog', '/blog', 'lucide--file-text'],
+    ['contact', 'mailto:rdcsq@rdcsq.com', 'lucide--mail'],
 ];
 ---
 
@@ -18,22 +19,23 @@ const routes = [
         <link rel="icon" type="image/webp" href="/icon.webp" />
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
-        <title>rdcsq</title>
+        <title>rdcsq / maple</title>
         <ClientRouter />
     </head>
-    <body>
+    <body class="overflow-y-scroll">
         <div
-            class="from-background sticky top-0 z-50 w-full bg-gradient-to-b from-30% to-transparent p-4"
+            class="from-background sticky top-0 z-50 w-full bg-linear-to-b from-30% to-transparent p-4"
         >
             <header class="font-display relative w-full">
-                <div
+                <h1
                     class:list={[
                         'bg-navigation border-card-outline inline-block rounded-full border px-4 py-3',
                         pathname === '/' && 'invisible',
                     ]}
                 >
-                    rdcsq
-                </div>
+                    <span>rdcsq</span>
+                    <span class="hidden sm:inline"> / maple</span>
+                </h1>
                 <div
                     class="border-card-outline bg-navigation absolute top-0 right-0 flex items-end justify-start overflow-hidden rounded-4xl border transition-all ease-out"
                     id="navbar"
@@ -49,6 +51,11 @@ const routes = [
                                         <li>
                                             <a
                                                 href={path}
+                                                target={
+                                                    path.startsWith('/')
+                                                        ? '_self'
+                                                        : '_blank'
+                                                }
                                                 aria-current={
                                                     path
                                                         .slice(1)
@@ -93,6 +100,11 @@ const routes = [
                                         <li class="group inline-block">
                                             <a
                                                 href={path}
+                                                target={
+                                                    path.startsWith('/')
+                                                        ? '_self'
+                                                        : '_blank'
+                                                }
                                                 aria-current={
                                                     path
                                                         .slice(1)
@@ -130,7 +142,7 @@ const routes = [
                         <button
                             id="menu"
                             type="button"
-                            class="not-aria-[current='page']:text-on-navigation not-aria-[current='page']:hover:bg-navigation-hover inline-block rounded-full px-3 py-2 transition-all sm:hidden ml-1"
+                            class="not-aria-[current='page']:text-on-navigation not-aria-[current='page']:hover:bg-navigation-hover ml-1 inline-block rounded-full px-3 py-2 transition-all sm:hidden"
                         >
                             <i
                                 class="iconify lucide--ellipsis mb-0.5 align-middle"
@@ -266,6 +278,6 @@ const routes = [
 
 <style>
     #navbar {
-        transition: all 0.45s cubic-bezier(.19,1.26,.64,1);
+        transition: all 0.45s cubic-bezier(0.19, 1.26, 0.64, 1);
     }
 </style>
