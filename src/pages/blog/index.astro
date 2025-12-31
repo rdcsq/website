@@ -5,7 +5,9 @@ import Image from 'astro/components/Image.astro';
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
-const allPosts = await getCollection('blog');
+const allPosts = (await getCollection('blog')).sort(
+    (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
 ---
 
 <title>blog - rdcsq</title>
@@ -13,40 +15,36 @@ const allPosts = await getCollection('blog');
     <h2 class="text-primary mb-12 text-4xl font-semibold">blog</h2>
     <div>
         {
-            allPosts
-                .sort(
-                    (a, b) =>
-                        b.data.date.getUTCDate() - a.data.date.getUTCDate(),
-                )
-                .map((post, i) => (
-                    <a
-                        role="article"
-                        href={`/blog/${post.id}`}
-                        class:list={[
-                            'bg-card border-card-outline relative flex flex-col border p-4 transition-all first:rounded-t-xl last:rounded-b-xl',
-                            '-mt-8 translate-y-0 pb-12 last:pb-4 not-last:hover:-translate-y-2 last:hover:-translate-y-4 last:hover:pb-8',
-                        ]}
-                        style={`z-index: ${i + 10};`}
-                    >
-                        <div class="align-center flex flex-col items-center gap-4 sm:flex-row">
-                            <Image
-                                src={post.data.image}
-                                alt={''}
-                                class="border-card-outline sm:max-w-64 rounded-lg border"
-                            />
-                            <div class="w-full">
-                                <h3 class="text-primary text-lg">
-                                    {post.data.title}
-                                </h3>
-                                <p class="line-clamp-2">
-                                    {post.data.summary ??
-                                        post.body?.substring(0, 300)}
-                                </p>
-                                <span class="font-mono text-sm opacity-60">{`${post.data.date.getUTCFullYear()}-${(post.data.date.getUTCMonth() + 1).toString().padStart(2, '0')}-${post.data.date.getUTCDate().toString().padStart(2, '0')}`}</span>
-                            </div>
+            allPosts.map((post, i) => (
+                <a
+                    role="article"
+                    href={`/blog/${post.id}`}
+                    class:list={[
+                        'bg-card border-card-outline relative flex flex-col border p-4 transition-all first:rounded-t-xl last:rounded-b-xl',
+                        '-mt-8 translate-y-0 pb-12 last:pb-4 not-last:hover:-translate-y-2 last:hover:-translate-y-4 last:hover:pb-8',
+                    ]}
+                    style={`z-index: ${i + 10};`}
+                >
+                    <div class="align-center flex flex-col items-center gap-4 sm:flex-row">
+                        <Image
+                            src={post.data.image}
+                            alt={''}
+                            class="border-card-outline rounded-lg border sm:max-w-64"
+                        />
+                        <div class="w-full">
+                            <h3 class="text-primary text-lg">
+                                {post.data.title}
+                            </h3>
+                            <p class="line-clamp-2">
+                                {post.data.invisibleSummary ??
+                                    post.data.summary ??
+                                    post.body?.substring(0, 300)}
+                            </p>
+                            <span class="font-mono text-sm opacity-60">{`${post.data.date.getUTCFullYear()}-${(post.data.date.getUTCMonth() + 1).toString().padStart(2, '0')}-${post.data.date.getUTCDate().toString().padStart(2, '0')}`}</span>
                         </div>
-                    </a>
-                ))
+                    </div>
+                </a>
+            ))
         }
     </div>
 </Layout>

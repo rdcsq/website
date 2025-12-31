@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog'))
-    .sort((a, b) => b.data.date.getUTCDate() - a.data.date.getUTCDate())
+    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
     .slice(0, 3);
 ---
 
@@ -29,7 +29,7 @@ const posts = (await getCollection('blog'))
                     <div class="w-full">
                         <h3 class="text-primary text-lg">{post.data.title}</h3>
                         <p class="line-clamp-2">
-                            {post.data.summary ?? post.body?.substring(0, 300)}
+                            {post.data.invisibleSummary ?? post.data.summary ?? post.body?.substring(0, 300)}
                         </p>
                         <span class="font-mono text-sm opacity-60">{`${post.data.date.getUTCFullYear()}-${(post.data.date.getUTCMonth() + 1).toString().padStart(2, '0')}-${post.data.date.getUTCDate().toString().padStart(2, '0')}`}</span>
                     </div>

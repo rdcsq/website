@@ -11,6 +11,7 @@ export const collections = {
         date: z.date(),
         image: image(),
         summary: z.string().optional(),
+        invisibleSummary: z.string().optional()
       }),
   }),
 };
