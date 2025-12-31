@@ -9,16 +9,11 @@
         "astro": "astro"
     },
     "dependencies": {
-        "@astrojs/node": "9.5.0",
-        "astro": "5.15.3"
+        "@astrojs/node": "9.5.1",
+        "astro": "5.16.6"
     },
     "devDependencies": {
-        "@types/bun": "^1.2.19",
-        "prettier": "^3.6.1",
-        "prettier-plugin-astro": "^0.14.1",
-        "prettier-plugin-tailwindcss": "^0.6.13",
-        "sass-embedded": "^1.89.2",
-        "@astrojs/mdx": "4.3.9",
+        "@astrojs/mdx": "4.3.13",
         "@fontsource-variable/outfit": "^5.2.6",
         "@iconify-json/devicon": "^1.2.29",
         "@iconify-json/logos": "^1.2.4",
@@ -26,6 +21,10 @@
         "@iconify/tailwind4": "^1.0.6",
         "@tailwindcss/typography": "^0.5.16",
         "@tailwindcss/vite": "^4.1.10",
+        "prettier": "^3.6.1",
+        "prettier-plugin-astro": "^0.14.1",
+        "prettier-plugin-tailwindcss": "^0.6.13",
+        "sass-embedded": "^1.89.2",
         "tailwindcss": "^4.1.10"
     }
 }
